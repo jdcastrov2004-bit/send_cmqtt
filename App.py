@@ -11,9 +11,6 @@ import platform
 # Muestra la versión de Python junto con detalles adicionales
 st.write("Versión de Python:", platform.python_version())
 
-        
-# MQTT
-
 # App
 def predictDigit(image):
     model = tf.keras.models.load_model("model/handwritten.h5")
