@@ -5,6 +5,36 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
+import paho.mqtt.client as paho
+
+# MQTT
+def predictDigit(image):
+    model = tf.keras.models.load_model("model/handwritten.h5")
+    image = ImageOps.grayscale(image)
+    img = image.resize((28,28))
+    img = np.array(img, dtype='float32')
+    img = img/255
+    plt.imshow(img)
+    plt.show()
+    img = img.reshape((1,28,28,1))
+    pred= model.predict(img)
+    result = np.argmax(pred[0])
+    return result
+
+def on_publish(client,userdata,result):             #create function for callback
+    print("el dato ha sido publicado \n")
+    pass
+
+def on_message(client, userdata, message):
+    global message_received
+    time.sleep(2)
+    message_received=str(message.payload.decode("utf-8"))
+    st.write(message_received)
+
+broker="broker.mqttdashboard.com"
+port=1883
+client1= paho.Client("GIT-ASC")
+client1.on_message = on_message
 
 # App
 def predictDigit(image):
@@ -52,6 +82,10 @@ if st.button('Predecir'):
         img = Image.open("prediction/img.png")
         res = predictDigit(img)
         st.header('El Digito es : ' + str(res))
+        client1.on_publish = on_publish                            
+        client1.connect(broker,port)  
+        message =json.dumps({"Digito":res})
+        ret= client1.publish("Piso", message)
     else:
         st.header('Por favor dibuja en el canvas el digito.')
 
