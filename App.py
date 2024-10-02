@@ -8,9 +8,7 @@ import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 
 
-
         
-
 # MQTT
 def predictDigit(image):
     model = tf.keras.models.load_model("model/handwritten.h5")
