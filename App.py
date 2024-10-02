@@ -13,21 +13,6 @@ st.write("Versión de Python:", platform.python_version())
 
         
 # MQTT
-def predictDigit(image):
-    model = tf.keras.models.load_model("model/handwritten.h5")
-    image = ImageOps.grayscale(image)
-    img = image.resize((28,28))
-    img = np.array(img, dtype='float32')
-    img = img/255
-    plt.imshow(img)
-    plt.show()
-    img = img.reshape((1,28,28,1))
-    pred= model.predict(img)
-    result = np.argmax(pred[0])
-    return result
-
-
-
 
 # App
 def predictDigit(image):
