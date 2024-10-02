@@ -1,4 +1,4 @@
-import paho.mqtt.client as paho
+
 import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
