@@ -1,7 +1,6 @@
 streamlit
-paho-mqtt
-tensorflow 
 matplotlib 
 streamlit-drawable-canvas 
 matplotlip
-
+paho-mqtt==1.6.1
+tensorflow==2.12
