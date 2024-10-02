@@ -7,26 +7,9 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 
-broker="broker.mqttdashboard.com"
-port=1883
-client1= paho.Client("GIT-HUB")
-client1.on_message = on_message
 
-def on_publish(client,userdata,result):             #create function for callback
-    print("el dato ha sido publicado \n")
-    pass
-
-def on_message(client, userdata, message):
-    global message_received
-    time.sleep(2)
-    message_received=str(message.payload.decode("utf-8"))
-    st.write(message_received)
 
         
-
-
-
-
 
 # MQTT
 def predictDigit(image):
