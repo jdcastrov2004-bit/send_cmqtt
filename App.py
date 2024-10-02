@@ -1,4 +1,4 @@
-import paho.mqtt.client as paho
+#import paho.mqtt.client as paho
 import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
@@ -22,20 +22,8 @@ def predictDigit(image):
     result = np.argmax(pred[0])
     return result
 
-def on_publish(client,userdata,result):             #create function for callback
-    print("el dato ha sido publicado \n")
-    pass
 
-def on_message(client, userdata, message):
-    global message_received
-    time.sleep(2)
-    message_received=str(message.payload.decode("utf-8"))
-    st.write(message_received)
 
-broker="broker.mqttdashboard.com"
-port=1883
-client1= paho.Client("GIT-ASC")
-client1.on_message = on_message
 
 # App
 def predictDigit(image):
@@ -83,11 +71,6 @@ if st.button('Predecir'):
         img = Image.open("prediction/img.png")
         res = predictDigit(img)
         st.header('El Digito es : ' + str(res))
-        client1.on_publish = on_publish                            
-        client1.connect(broker,port)  
-        message =json.dumps({"Digito":res})
-        ret= client1.publish("Piso", message)
-    else:
         st.header('Por favor dibuja en el canvas el digito.')
 
 # Add sidebar
