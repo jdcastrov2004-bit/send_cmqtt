@@ -117,6 +117,8 @@ def connect_to_broker():
         client = initialize_mqtt_client()
         client.connect(st.session_state.broker, st.session_state.port, 60)
         client.loop_start()
+        # Guardamos el cliente en session_state para mantenerlo activo
+        st.session_state.mqtt_client = client
         return client
     except Exception as e:
         st.error(f"Error al conectar: {str(e)}")
@@ -166,8 +168,10 @@ with st.sidebar.expander("Configuración de Conexión", expanded=True):
 if st.sidebar.button("Conectar al Broker"):
     client = connect_to_broker()
     if client:
+        st.session_state.connection_status = True
         st.sidebar.success("Conexión iniciada")
     else:
+        st.session_state.connection_status = False
         st.sidebar.error("Error al conectar")
 
 # Información de estado
