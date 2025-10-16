@@ -25,7 +25,7 @@ def on_message(client, userdata, message):
 
 broker="http://broker.mattdashboard.com"
 port=1883
-client1= paho.Client("JUANDA-21")
+client1= paho.Client("JUANDA-21github")
 client1.on_message = on_message
 
 
